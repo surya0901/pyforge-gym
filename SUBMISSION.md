@@ -78,7 +78,13 @@ Verified:
 - Deleted local progress and reloaded: it came back from the server record.
 - A thin design answer graded 1.8/5 with specific missed points.
 - Room text persists across reloads. Signed-out calls to actions get 401.
-- [Surya: add your own checks here, e.g. two-browser room test, a real answer graded]
+- On the live site I signed in, graded my own URL-shortener answer (1.2/5;
+  it correctly flagged that I skipped estimates, the data model and scaling,
+  and asked how to generate unique codes when two servers race), and saw the
+  attempt saved in my history.
+- Opened one room in a normal and an incognito window, signed in on both:
+  text typed in one appeared live in the other, with "Surya + you" and a
+  "Surya is typing" badge on the step being edited.
 
 ## If I kept going
 

@@ -39,7 +39,7 @@ Agent did:
 - Removed the "paste your API key" card. AI now goes through server actions.
 
 Verified / changed by me:
-- [ ] Sign in with Google or GitHub on localhost, answer a drill, reload: progress persists
+- [x] Signed in on the live site; progress and streak shown, "Progress synced"
 - [ ] Open /gym in a second browser/profile with the same account: same streak and queue
 - [ ] Read `src/pyforge/useProgressSync.ts` and `src/schemas/pyforge-schemas.ts`
 
@@ -76,7 +76,7 @@ Verified (agent, local):
   the 4 weak-spot tags came back from the server with the same savedAt.
 
 Verified / changed by me:
-- [ ] Grade one of my own real answers and judge whether the feedback is fair
+- [x] Live site: graded my own URL-shortener answer (1.2/5), feedback matched what I skipped; attempt saved in history
 
 ## Step 3: live mock interview room
 
@@ -99,8 +99,7 @@ Verified (agent, local): text typed in the room survives a full reload
 once: the preview browser can't open a second tab.
 
 Verified / changed by me:
-- [ ] Open the same room link in a second browser/incognito (or send it to a
-      friend): typing shows up live both ways, and "X is typing" appears
+- [x] Live site: same room in normal + incognito window, typing appeared live, "Surya + you" and "Surya is typing" shown
 
 ## Decisions and tradeoffs (draft)
 
