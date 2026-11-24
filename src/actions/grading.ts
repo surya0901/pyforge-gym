@@ -19,8 +19,8 @@ import type { Env } from '../../worker'
 export const GRADER_MODEL = 'claude-sonnet-5-5'
 export const COACH_MODEL = 'claude-haiku-5-5'
 /** Daily per-user caps. The app owner pays for every call, so these are the brake. */
-export const DAILY_GRADES = 15
-export const DAILY_ASKS = 25
+export const DAILY_GRADES = 5
+export const DAILY_ASKS = 10
 
 export const AXES = ['requirements', 'data_model', 'architecture', 'scalability', 'tradeoffs'] as const
 export type Axis = (typeof AXES)[number]

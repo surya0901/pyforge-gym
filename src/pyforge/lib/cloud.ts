@@ -11,8 +11,8 @@ import { getAuthToken } from 'deepspace';
 export type SampleFn = ((input: string | { role: string; content: string }[], opts?: Record<string, unknown>) => Promise<{ text: string }>);
 
 /** Mirrors the server caps in src/actions/grading.ts (display only; the server enforces). */
-export const DAILY_GRADES = 15;
-export const DAILY_ASKS = 25;
+export const DAILY_GRADES = 5;
+export const DAILY_ASKS = 10;
 
 export const aiName = (): string | null => 'Claude';
 

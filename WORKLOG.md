@@ -68,7 +68,7 @@ Agent did:
   (RBAC `create: false`), so scores in the history come only from the grader.
 - The grade feeds the existing spaced-repetition engine: overall score -> SM-2
   quality, every axis scored 1-2 -> a `design-axis:*` weak-spot tag on Stats.
-- Daily caps per user (15 grades, 25 coach replies) in a server-only
+- Daily caps per user (5 grades, 10 coach replies; first 15/25, lowered to protect the free $5 of credits) in a server-only
   `ai_usage` collection, because the owner pays for every call.
 
 Verified (agent, local):

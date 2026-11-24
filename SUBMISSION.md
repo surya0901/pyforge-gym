@@ -47,7 +47,7 @@ existing "Today" plan, and I'd rather ship three features that work), and the
 **The app owner pays for AI, capped per user.** I could bill each user's own
 DeepSpace credits (`authToken: callerJwt`). That makes abuse free for me but
 breaks the app for anyone without credits, including reviewers. I chose
-owner-billed calls with a server-enforced daily cap (15 grades, 25 coach
+owner-billed calls with a server-enforced daily cap (5 grades, 10 coach
 replies per user) kept in a collection no client can read or write.
 
 Smaller ones:
