@@ -43,6 +43,65 @@ Verified / changed by me:
 - [ ] Open /gym in a second browser/profile with the same account: same streak and queue
 - [ ] Read `src/pyforge/useProgressSync.ts` and `src/schemas/pyforge-schemas.ts`
 
+Bugs found while testing step 1 locally:
+- After OAuth the scaffold redirects to `/home`, which no longer exists. Changed
+  to `/gym`, and a signed-out person opening a room invite is forwarded back to
+  that room after sign-in (sessionStorage `pyforge.returnTo`).
+- `useSample` did `getSample().then(setSample)`. React treats a function passed
+  to setState as an updater and calls it, so every page mount fired an empty
+  AI request. The server rejected it ("Empty prompt") before spending, which is
+  how it showed up. Fixed with `setSample(() => fn)`. (This bug was in the
+  original PyForge too.)
+
+## Step 2: AI rubric grader
+
+Agent did:
+- `gradeDesign` server action (`src/actions/grading.ts`): the browser sends only
+  problem id + answers; the reference answer and rubric stay server side.
+  Claude Sonnet via `createDeepSpaceAI(env, 'anthropic')` with a zod schema
+  (`Output.object`) so the grade is structured: 5 axes scored 1-5 with notes,
+  per-step verdict + missed points, strengths, one follow-up on the weakest axis.
+- Saved as a `design_attempts` record by the action. Users cannot create these
+  (RBAC `create: false`), so scores in the history come only from the grader.
+- The grade feeds the existing spaced-repetition engine: overall score -> SM-2
+  quality, every axis scored 1-2 -> a `design-axis:*` weak-spot tag on Stats.
+- Daily caps per user (15 grades, 25 coach replies) in a server-only
+  `ai_usage` collection, because the owner pays for every call.
+
+Verified (agent, local):
+- Graded a deliberately thin URL-shortener answer: 1.8/5, weakest axis
+  scalability, specific missed points (no cache, no code generation strategy,
+  blank steps 5-6), sensible follow-up question.
+- Deleted the browser's local progress, reloaded: the grade's SRS card and
+  the 4 weak-spot tags came back from the server with the same savedAt.
+
+Verified / changed by me:
+- [ ] Grade one of my own real answers and judge whether the feedback is fair
+
+## Step 3: live mock interview room
+
+Agent did:
+- `/room/:id` (`src/pages/(app)/(protected)/room/[id].tsx`): one `useYjsRoom`
+  document per room, one Y.Text per design step, a `meta` Y.Map holding the
+  problem id and the latest grade (so everyone in the room sees it). Edits are
+  applied as minimal splices so two people typing in one box merge.
+- Presence via Yjs awareness: names, colors, and "X is typing" on the step.
+- "Show reference" is local state only, never written to the shared doc.
+
+Bug found while testing: a presence render loop. The page re-published its
+awareness state on every render and re-rendered on every awareness event:
+~3,500 WebSocket frames per second while idle, which wedged the local worker
+(every route hung). Measured by wrapping `WebSocket.prototype.send`. Fixed by
+depending on primitives and skipping identical peer lists: 2 frames idle.
+
+Verified (agent, local): text typed in the room survives a full reload
+(persisted in the YjsRoom Durable Object). Could NOT verify two people at
+once: the preview browser can't open a second tab.
+
+Verified / changed by me:
+- [ ] Open the same room link in a second browser/incognito (or send it to a
+      friend): typing shows up live both ways, and "X is typing" appears
+
 ## Decisions and tradeoffs (draft)
 
 - Progress is one JSON record per user, not one row per card: it is only ever

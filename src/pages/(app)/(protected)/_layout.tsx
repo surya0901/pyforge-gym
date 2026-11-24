@@ -36,7 +36,14 @@ function SignedOutPanel() {
         <p className="mt-2 text-sm text-muted-foreground">
           This page is only available to signed-in users.
         </p>
-        <Button className="mt-6 w-full" onClick={() => setShowAuthModal(true)}>
+        <Button
+          className="mt-6 w-full"
+          onClick={() => {
+            // Sign-in lands on /gym; remember an invite link so /gym can forward to it.
+            try { sessionStorage.setItem('pyforge.returnTo', location.pathname + location.search) } catch { /* private mode */ }
+            setShowAuthModal(true)
+          }}
+        >
           Sign in
         </Button>
         <Link

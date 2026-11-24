@@ -172,7 +172,7 @@ export default function Dashboard({ progress, solved, go, reset }: Props) {
             <ul className="space-y-2">
               {mistakes.map(([tag, n]) => (
                 <li key={tag} className="flex items-center justify-between gap-3 text-sm">
-                  <span className="text-zinc-300">{MISTAKE_LABEL[tag] ?? (tag.startsWith('card-miss-') ? `Flashcards: missed a ${tag.slice(10)} card` : tag === 'design-miss' ? 'System design: missed most of a problem' : tag)}</span>
+                  <span className="text-zinc-300">{MISTAKE_LABEL[tag] ?? (tag.startsWith('card-miss-') ? `Flashcards: missed a ${tag.slice(10)} card` : tag === 'design-miss' ? 'System design: missed most of a problem' : tag.startsWith('design-axis:') ? `System design: weak on ${tag.slice(12).replace('_', ' ')}` : tag)}</span>
                   <span className="rounded bg-rose-500/10 px-1.5 font-mono text-xs text-rose-300">×{n}</span>
                 </li>
               ))}

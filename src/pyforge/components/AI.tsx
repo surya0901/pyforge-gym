@@ -9,7 +9,8 @@ import { Button, Card } from './ui';
 
 export function useSample() {
   const [sample, setSample] = useState<SampleFn | null | undefined>(undefined);
-  useEffect(() => { getSample().then(setSample); }, []);
+  // Wrap in a thunk: setState(fn) would treat the function as an updater and CALL it.
+  useEffect(() => { getSample().then((fn) => setSample(() => fn)); }, []);
   return sample; // undefined = still checking, null = not available here
 }
 
