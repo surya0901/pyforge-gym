@@ -1,9 +1,12 @@
 /**
  * AI rubric grading for the system design studio, run in the Worker.
  *
- * The browser sends only the problem id and the candidate's answers. The
- * reference answer and rubric live here, server side, and Claude is reached
- * through DeepSpace's AI proxy, so no API key ever exists in the browser.
+ * The browser sends only the problem id and the candidate's answers; the
+ * prompt is built here from the server's copy of the problem and rubric, so a
+ * client can't change what it is graded against, and only this action can
+ * write a score. (The reference text is not secret: the studio's "Compare
+ * with reference" shows it.) Claude is reached through DeepSpace's AI proxy,
+ * so no API key ever exists in the browser.
  */
 
 import { generateText, Output } from 'ai'

@@ -8,7 +8,7 @@ import { seo } from '../seo'
 
 const FEATURES = [
   ['Syntax recall, bug hunter, pattern finder', 'Drills built from real interview solutions, scheduled with spaced repetition.'],
-  ['AI-graded system design', 'Claude scores your answer on five rubric axes against a hidden reference and asks a follow-up on your weakest one.'],
+  ['AI-graded system design', 'Claude scores your answer on five rubric axes against a reference answer and asks a follow-up on your weakest one.'],
   ['Live mock interview rooms', 'Share a link, work the same design problem together, and see who is editing which step in real time.'],
   ['Progress that follows you', 'Every answer syncs to your account, so your laptop and phone show the same streak and review queue.'],
 ]

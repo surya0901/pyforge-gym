@@ -57,7 +57,10 @@ Bugs found while testing step 1 locally:
 
 Agent did:
 - `gradeDesign` server action (`src/actions/grading.ts`): the browser sends only
-  problem id + answers; the reference answer and rubric stay server side.
+  problem id + answers; the server builds the prompt from its own copy of the
+  problem and rubric. (The reference text also ships to the browser for
+  "Compare with reference", so it is not secret; what the server protects is
+  the score and the AI billing.)
   Claude Sonnet via `createDeepSpaceAI(env, 'anthropic')` with a zod schema
   (`Output.object`) so the grade is structured: 5 axes scored 1-5 with notes,
   per-step verdict + missed points, strengths, one follow-up on the weakest axis.

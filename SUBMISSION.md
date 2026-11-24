@@ -15,7 +15,7 @@ things a static site can't do:
    spaced-repetition state lives in a per-user record that syncs live between
    devices. Existing browser progress is imported on first sign-in.
 2. **An AI interviewer grades system design.** Claude scores your answer on
-   five rubric axes against a reference the browser never sees, lists what you
+   five rubric axes against the reference answer, lists what you
    missed per step, and asks one follow-up on your weakest axis. Every grade is
    saved, shown as a history, and weak axes feed the existing weak-spot engine.
 3. **Live mock interview rooms.** "Practice live with a friend" opens a room
@@ -33,7 +33,7 @@ room. `git log` and `WORKLOG.md` show exactly what changed.
 |---|---|---|
 | Auth (`AuthGate`, Google/GitHub) | `/gym` and rooms are per user | Progress, grades and AI quotas need an identity |
 | Records + RBAC | `progress` (one row per user, `read: 'own'`), `design_attempts` (`create: false` for users), `ai_usage` (server only) | Permissions are enforced in the Durable Object, so a user can't read others' data or forge a score |
-| Server actions | `gradeDesign`, `askCoach` | The reference answer, rubric and AI billing stay on the server |
+| Server actions | `gradeDesign`, `askCoach` | The grading prompt, rubric and AI billing live on the server, and only the server can write a score |
 | AI proxy (`createDeepSpaceAI`) | Claude Sonnet (grading, structured output via zod), Haiku (coach) | No API key anywhere in the client. The old site's "paste your key" box is gone |
 | Yjs rooms + awareness | `/room/:id` shared answer sheet and presence | CRDT merging means two people typing in one box don't overwrite each other |
 
